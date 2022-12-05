@@ -1,10 +1,12 @@
-#e-Library Project
+<h1>e-Library Project</h1>
 
-##Contributors: <br/>
-Aditya Bhate<br/>
+<h3>Contributors: </h3>
+<ul>
+<li>Aditya Bhate</li><br/>
 
-Mritunjay Kumar<br/>
+<li>Mritunjay Kumar</li><br/>
 
-Ashutosh Mishra<br/>
+<li>Ashutosh Mishra</li><br/>
 
-Abbas Zaidi<br/>
+<li>Abbas Zaidi</li><br/>
+<u/>
