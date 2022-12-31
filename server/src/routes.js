@@ -4,7 +4,7 @@ import {
     UserSignup,
     UserLogin,
     getUser
-} from "./controllers/userContorller"
+} from "./controllers/userContorller.js"
 
 import {
     uploadBook,
@@ -12,7 +12,7 @@ import {
     getBooks,
     addBook,
     getBook
-} from "./controllers/bookController"
+} from "./controllers/bookController.js"
 
 const upload = multer({
     dest: "uploads"
