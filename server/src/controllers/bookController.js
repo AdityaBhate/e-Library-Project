@@ -33,39 +33,25 @@ export const getBooks = async (req, res) => {
 }
 
 export async function handleDownload(req, res) {
-    const file = await File.findById(req.params.id);
-
-    if (file.password != null) {
-        if (req.body.password == null) {
-            res.render("password");
-            return;
-        }
-
-        if (!(await bcrypt.compare(req.body.password, file.password))) {
-            res.render("password", {
-                error: true
-            });
-            return;
-        }
-    }
+    const book = await BookModel.findById(req.params.id);
 
     file.downloadCount++;
-    await file.save();
-    console.log(file.downloadCount);
+    await book.save();
+    console.log("Downloading file");
 
     res.download(file.path, file.originalName);
 }
 
 export const uploadBook = async (req, res) => {
     const fileData = {
+        name: req.body.name,
         path: req.file.path,
         originalName: req.file.originalname,
+        category: req.body.category,
+        subject: req.body.subject
     };
-    if (req.body.password != null && req.body.password !== "") {
-        fileData.password = await bcrypt.hash(req.body.password, 10);
-    }
 
-    const file = await File.create(fileData);
+    const book = await BookModel.create(fileData);
 
-    res.send(`${req.headers.origin}/file/${file.id}`);
+    res.send(`book uploaded successfully by id ${book.id}`);
 };

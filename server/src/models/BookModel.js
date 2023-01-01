@@ -7,10 +7,13 @@ const BookSchema = mongoose.Schema({
     category: {
         type: String
     },
+    originalName: {
+        type: String
+    },
     subject: {
         type: String
     },
-    filePath: {
+    path: {
         type: String
     }
 })
