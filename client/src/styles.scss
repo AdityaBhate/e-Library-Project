@@ -1,0 +1,489 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+html {
+	scroll-behavior: smooth;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+/*Navbar section*/
+.navbar {
+	.navbar-list {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		height: 65px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		list-style: none;
+		background-color: black;
+		color: white;
+		text-decoration: none;
+		font-family: "Inter", sans-serif;
+		z-index: 2;
+		font-size: 1.4rem;
+		cursor: pointer;
+		element {
+			transition: 300 ease;
+		}
+	}
+	.Home {
+		transition: 300 ease;
+		.navbar-howitworks-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-about-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-contact-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+	}
+	.Howitworks {
+		transition: 300 ease;
+		.navbar-home-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-about-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-contact-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+	}
+	.About {
+		transition: 300 ease;
+		.navbar-howitworks-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-home-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-contact-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+	}
+	.Contact {
+		transition: 300 ease;
+		.navbar-howitworks-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-about-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+		.navbar-home-element {
+			transition: 300 ease;
+			font-size: 0.8rem;
+			color: rgba(255, 252, 252, 0.6);
+		}
+	}
+}
+
+/*Home section*/
+.home-section {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	margin: 0 150px;
+
+	.home-section-content {
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		font-family: "Inter";
+		gap: 25px;
+
+		.home-section-content-title {
+			font-size: 1.8rem;
+		}
+		.home-section-content-desc {
+			font-size: 1.25rem;
+		}
+		.home-section-login {
+			width: 200px;
+			height: 50px;
+			color: white;
+			background-color: #7f39f3;
+			border: none;
+			border-radius: 20px;
+			font-weight: 500;
+			font-size: 1.3rem;
+			transition: 300ms ease;
+		}
+		.home-section-login:hover {
+			transform: scale(1.1);
+		}
+	}
+
+	.home-section-image {
+		width: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		img {
+			transform: scale(0.5);
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
+}
+
+/*How it works Section*/
+.howitworks-section {
+	.howitworks-section-title {
+		text-align: center;
+		font-family: "Inter";
+		font-size: 2.2rem;
+		font-weight: 700;
+		color: #7f39f3;
+		margin-bottom: 10px;
+	}
+
+	.howitworks-section-content {
+		display: flex;
+		flex-direction: column;
+		margin: 0 100px;
+	}
+
+	.howitworks-section-content-step {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 300px;
+		font-family: "Inter";
+
+		img {
+			transform: scale(0.7);
+			width: 40%;
+		}
+		p {
+			span {
+				display: block;
+				font-size: 1.4rem;
+				margin-bottom: 10px;
+				font-weight: 600;
+			}
+			font-size: 1.2rem;
+			width: 35%;
+		}
+	}
+}
+
+/*About Us*/
+.aboutus-section {
+	.aboutus-section-title {
+		margin-top: 200px;
+		text-align: center;
+		font-family: "Inter";
+		font-size: 2.2rem;
+		font-weight: 700;
+		color: #7f39f3;
+		margin-bottom: 10px;
+	}
+
+	.aboutus-section-content {
+		height: 450px;
+		margin: 0 150px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		.aboutus-section-contnet-img {
+			img {
+				transform: scale(0.6);
+			}
+		}
+
+		.aboutus-section-contnet-desc {
+			font-family: "Inter";
+			font-size: 1.2rem;
+		}
+	}
+}
+
+/*Contact Us*/
+.contactus-section {
+	.contactus-section-title {
+		margin-top: 200px;
+		text-align: center;
+		font-family: "Inter";
+		font-size: 2.2rem;
+		font-weight: 700;
+		color: #7f39f3;
+		margin-bottom: 10px;
+	}
+
+	.contactus-section-content {
+		height: 450px;
+		margin: 0 150px;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+
+		.contactus-section-img {
+			width: 40%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			img {
+				transform: scale(0.5);
+			}
+		}
+
+		.contactus-section-form {
+			width: 40%;
+			font-family: "Inter";
+			font-size: 1rem;
+
+			input {
+				height: 35px;
+				width: 75%;
+				outline: none;
+				padding: 10px;
+				border: none;
+				border-radius: 10px;
+				font-family: "Inter";
+				background-color: #d9d9d9;
+			}
+
+			textarea {
+				height: 150px;
+				width: 75%;
+				outline: none;
+				padding: 10px;
+				border: none;
+				border-radius: 10px;
+				font-family: "Inter";
+				background-color: #d9d9d9;
+			}
+			label {
+				display: block;
+				margin-bottom: 2px;
+				margin-top: 10px;
+			}
+			.message-label {
+				margin-top: 20px;
+			}
+
+			.contactus-section-form-button {
+				margin-top: 25px;
+				width: 150px;
+				height: 35px;
+				color: white;
+				background-color: #7f39f3;
+				border: none;
+				border-radius: 20px;
+				font-weight: 500;
+				font-size: 1.3rem;
+				transition: 300ms ease;
+			}
+
+			.contactus-section-form-button:hover {
+				transform: scale(1.1);
+			}
+		}
+	}
+}
+
+/*Auth*/
+.Auth-navbar {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	height: 65px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	list-style: none;
+	background-color: black;
+	color: white;
+	text-decoration: none;
+	font-family: "Inter", sans-serif;
+	z-index: 2;
+	font-size: 1.4rem;
+	cursor: pointer;
+
+	P {
+		width: 95%;
+		text-align: left;
+		transition: 400ms ease;
+	}
+	p:hover {
+		font-size: 1.5rem;
+		transform: translateX(-15px);
+	}
+}
+
+.Auth-section {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	-ms-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	// border: 2px solid black;
+	display: flex;
+	flex-direction: column;
+	font-family: "Inter";
+
+	.Auth-header {
+		p {
+			text-align: center;
+			font-size: 2.2rem;
+			font-weight: 700;
+			color: #7f39f3;
+		}
+	}
+	.Auth-body {
+		display: flex;
+		flex-direction: column;
+		margin: 10px;
+		padding-top: 10px;
+
+		/*Opt 1*/
+		.Auth-body-Option-std {
+			padding-top: 10px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-around;
+
+			p {
+				padding: 10px;
+				cursor: pointer;
+			}
+			.Auth-body-Options-Student {
+				width: 50%;
+				text-align: center;
+				-webkit-border-top-left-radius: 5px;
+				-webkit-border-top-right-radius: 5px;
+				-moz-border-radius-topleft: 5px;
+				-moz-border-radius-topright: 5px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border-left: 1px solid black;
+				border-right: 1px solid black;
+				border-top: 1px solid black;
+			}
+			.Auth-body-Options-Admin {
+				width: 50%;
+				text-align: center;
+				border-bottom-right-radius: -5px;
+				border-bottom: 1px solid black;
+			}
+		}
+
+		/*Opt 2*/
+		.Auth-body-Option-adm {
+			padding-top: 10px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-around;
+
+			p {
+				padding: 10px;
+				cursor: pointer;
+			}
+			.Auth-body-Options-Admin {
+				width: 50%;
+				text-align: center;
+				-webkit-border-top-left-radius: 5px;
+				-webkit-border-top-right-radius: 5px;
+				-moz-border-radius-topleft: 5px;
+				-moz-border-radius-topright: 5px;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+				border-left: 1px solid black;
+				border-right: 1px solid black;
+				border-top: 1px solid black;
+			}
+			.Auth-body-Options-Student {
+				width: 50%;
+				text-align: center;
+				border-bottom-right-radius: -5px;
+				border-bottom: 1px solid black;
+			}
+		}
+	}
+
+	.Auth-form {
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-bottom: 1px solid black;
+
+		-webkit-border-bottom-right-radius: 10px;
+		-webkit-border-bottom-left-radius: 10px;
+		-moz-border-radius-bottomright: 10px;
+		-moz-border-radius-bottomleft: 10px;
+		border-bottom-right-radius: 10px;
+		border-bottom-left-radius: 10px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		align-items: center;
+		padding: 25px;
+
+		label {
+			width: 100%;
+			text-align: left;
+		}
+		.auth-form-reg-label {
+			margin-top: 15px;
+		}
+		input {
+			height: 35px;
+			width: 100%;
+			outline: none;
+			padding: 10px;
+			border: none;
+			border-radius: 10px;
+			font-family: "Inter";
+			background-color: #d9d9d9;
+		}
+		button {
+			margin-top: 25px;
+			width: 150px;
+			height: 35px;
+			color: white;
+			background-color: #7f39f3;
+			border: none;
+			border-radius: 20px;
+			font-weight: 500;
+			font-size: 1.3rem;
+			transition: 300ms ease;
+		}
+		button:hover {
+			transform: scale(1.1);
+		}
+	}
+}

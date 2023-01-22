@@ -11,7 +11,8 @@ import {
     handleDownload,
     getBooks,
     addBook,
-    getBook
+    getBook,
+    searchContent
 } from "./controllers/bookController.js"
 
 const upload = multer({
@@ -19,17 +20,19 @@ const upload = multer({
 });
 
 const router = express.Router();
-
+//auth routes
 router.post("/user/signup", UserSignup);
 router.post("/user/login", UserLogin);
 router.get("/user/:id", getUser);
-
+//content routes
 router.get("/content/all", getBooks)
 router.post("/content/add", addBook)
 router.get("/content/:id", getBook)
-
+//file routes
 router.post("/content/upload", upload.single("file"), uploadBook)
 router.get("/file/:id", handleDownload)
 router.post("/file/:id", handleDownload);
+//search routes
+router.get("/search", searchContent)
 
 export default router;

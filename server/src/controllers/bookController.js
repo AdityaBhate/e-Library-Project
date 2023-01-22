@@ -48,10 +48,54 @@ export const uploadBook = async (req, res) => {
         path: req.file.path,
         originalName: req.file.originalname,
         category: req.body.category,
-        subject: req.body.subject
+        subject: req.body.subject,
+        uploadedBy: req.body.uploadedBy,
+        author: req.body.author,
+        recommendedYear: req.body.recommendedYear
     };
-
+    /**name: {
+        type: String
+    },
+    category: {
+        type: String
+    },
+    subject: {
+        type: String
+    },
+    uploadedBy: {
+        type: String
+    },
+    author: {
+        type: String
+    },
+    recommendedYear: {
+        type: Number
+    }, */
     const book = await BookModel.create(fileData);
 
     res.send(`book uploaded successfully by id ${book.id}`);
 };
+
+export const searchContent = async (req, res) => {
+    // let recommendedYear = req.query.recommendedYear;
+    let category = req.query.category;
+    let subject = req.query.subject;
+    let name = req.query.name;
+    console.log(req.query)
+
+    let resData = await BookModel.find({
+        "$or": [{
+            name: {
+                $regex: name
+            },
+            subject: {
+                $regex: subject
+            },
+            category: {
+                $regex: category
+            }
+        }]
+    })
+
+    res.json(resData)
+}

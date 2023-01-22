@@ -7,10 +7,19 @@ const BookSchema = mongoose.Schema({
     category: {
         type: String
     },
-    originalName: {
+    subject: {
         type: String
     },
-    subject: {
+    uploadedBy: {
+        type: String
+    },
+    author: {
+        type: String
+    },
+    recommendedYear: {
+        type: Number
+    },
+    originalName: {
         type: String
     },
     path: {
