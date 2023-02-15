@@ -5,28 +5,52 @@ import UserModel from "../models/UserModel.js";
 
 //login
 export const UserLogin = async (req, res) => {
-	const { username, password } = req.body;
-	UserModel.findOne({ username: username }).select('password').exec(async (err, doc) => {
+	const {
+		username,
+		password
+	} = req.body;
+	UserModel.findOne({
+		username: username
+	}).exec(async (err, doc) => {
 		if (!doc) {
-			return res.json({ Auth: "User not found" });
+			return res.json({
+				Auth: "User not found"
+			});
 		}
 		if (await bcrypt.compare(password, doc.password)) {
-			return res.json({ Auth: `success, Logged In as ${doc.role}`, user: doc });
+			res.cookie("User", doc.id, {
+				// httpOnly: true,
+				maxAge: 8640000
+			})
+			res.cookie("Role", doc.role, {
+				// httpOnly: true,
+				maxAge: 8640000
+			})
+			console.log(req.headers.cookie)
+			return res.json({
+				Auth: `Success`,
+				user: doc
+			});
 		} else {
-			res.json({ Auth: "username or password incorrect" });
+			res.json({
+				Auth: "username or password incorrect"
+			});
 		}
 	});
 };
 
 //sign-up
 export const UserSignup = async (req, res) => {
-	const { username, password, email, role } = req.body;
+	const {
+		username,
+		password,
+		role
+	} = req.body;
 	const hashedPassword = await bcrypt.hash(password, 10);
 	const newUser = new UserModel({
 		username: username,
-		email: email,
 		password: hashedPassword,
-        role: role
+		role: role
 	});
 	try {
 		await newUser.save()
@@ -38,7 +62,9 @@ export const UserSignup = async (req, res) => {
 
 export const getUser = (req, res) => {
 	const _id = req.params.id;
-	UserModel.findOne({ _id: _id }, async (err, doc) => {
+	UserModel.findOne({
+		_id: _id
+	}, async (err, doc) => {
 		res.json(doc);
 	});
 };

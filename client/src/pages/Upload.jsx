@@ -1,103 +1,127 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import Cookies from "js-cookie";
 import axios from "axios";
-import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Upload } from "antd";
+import Navbar from "../components/Navbar";
 
-// const props = {
-// 	name: "file",
-// 	action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
-// 	headers: {
-// 		authorization: "authorization-text",
-// 	},
-// 	onChange(info) {
-// 		if (info.file.status !== "uploading") {
-// 			console.log(info.file, info.fileList);
-// 		}
-// 		if (info.file.status === "done") {
-// 			message.success(`${info.file.name} file uploaded successfully`);
-// 		} else if (info.file.status === "error") {
-// 			message.error(`${info.file.name} file upload failed.`);
-// 		}
-// 	},
-// };
-
-// const App = () => (
-// 	<Upload {...props}>
-// 	<Button icon={<UploadOutlined />}>Click to Upload</Button>
-// 	 </Upload>
-// );
-
-function App() {
+function Upload() {
 	const [file, setFile] = useState();
-	const [name, setName] = useState();
-	const [category, setCategory] = useState();
-	const [subject, setSubject] = useState();
-	let uploadedBy = "test admin";
-	const [author, setAuthor] = useState();
-	const [recommendedYear, setRecommendedYear] = useState();
-
-	/**name: {
-        type: String
-    },
-    category: {
-        type: String
-    },
-    subject: {
-        type: String
-    },
-    uploadedBy: {
-        type: String
-    },
-    author: {
-        type: String
-    },
-    recommendedYear: {
-        type: Number
-    }, */
+	const [name, setName] = useState("");
+	const [category, setCategory] = useState("");
+	const [branch, setBranch] = useState("");
+	const [uploadedBy, setUploadedBy] = useState("");
+	const [author, setAuthor] = useState("");
 
 	function handleFileChange(event) {
 		setFile(event.target.files[0]);
 	}
 
 	function handleSubmit(event) {
-		event.preventDefault();
 		const url = "http://localhost:3001/content/upload";
+		event.preventDefault();
+
+		let cookies = Cookies.get();
+		setUploadedBy(cookies.User);
 		const formData = new FormData();
 		formData.append("file", file);
-		formData.append("name", name);
+		formData.append("name", name.toLowerCase());
 		formData.append("category", category);
-		formData.append("subject", subject);
+		formData.append("branch", branch);
 		formData.append("uploadedBy", uploadedBy);
 		formData.append("author", author);
-		formData.append("recommendedYear", recommendedYear);
+		formData.append("downloadCount", 0);
 
 		axios.post(url, formData).then((response) => {
-			console.log(response.data);
+			alert("Book Uploaded!");
+			setFile("");
+			setName("");
+			setCategory("");
+			setBranch("");
+			setUploadedBy("");
+			setAuthor("");
 		});
 	}
+
+	const hiddenFileInput = React.useRef(null);
+
+	const handleClick = (event) => {
+		hiddenFileInput.current.click();
+	};
+
 	return (
 		<>
-			<form onSubmit={handleSubmit}>
-				<h1>File Upload</h1>
-				<label>Name</label>
-				<input type='text' onChange={(e) => setName(e.target.value)} />
-				<label>Category</label>
-				<input type='text' onChange={(e) => setCategory(e.target.value)} />
-				<label>subject</label>
-				<input type='text' onChange={(e) => setSubject(e.target.value)} />
-				<label>author</label>
-				<input type='text' onChange={(e) => setAuthor(e.target.value)} />
-				<label>recommendedYear</label>
-				<input
-					type='number'
-					onChange={(e) => setRecommendedYear(e.target.value)}
-				/>
-				<label>File</label>
-				<input type='file' onChange={handleFileChange} />
-				<button type='submit'>Upload</button>
-			</form>
+			<Navbar />
+			<div className='upload-page'>
+				<h1>Upload Content</h1>
+
+				<div className='upload-uploadForm'>
+					<label>Name</label>
+					<input type='text' onChange={(e) => setName(e.target.value)} />
+
+					<label>Category</label>
+					<select
+						name='category'
+						id='category'
+						onChange={(e) => setCategory(e.target.value)}>
+						<option value=''>Select category</option>
+						<option value='Book'>Book</option>
+						<option value='Article'>Article</option>
+						<option value='Notes'>Notes</option>
+						<option value='Past Paper'>Past Paper</option>
+					</select>
+
+					{/* <label>Branch</label>
+					<input type='text' onChange={(e) => setBranch(e.target.value)} /> */}
+					<label>Branch</label>
+					<select
+						name='branch'
+						id='searhCategroy'
+						onChange={(e) => setBranch(e.target.value)}>
+						<option value=''>Select Branch</option>
+						<option value='CSE'>CSE</option>
+						<option value='Mechanical'>Mechanical</option>
+						<option value='Architecture'>Architecture</option>
+						<option value='Electrical'>Electrical</option>
+						<option value='BioEngineering'>BioEngineering</option>
+					</select>
+
+					<label>Author</label>
+					<input type='text' onChange={(e) => setAuthor(e.target.value)} />
+
+					<label className='custom-file-upload' onClick={handleClick}>
+						File
+					</label>
+					<input
+						type='file'
+						id='fileUpload'
+						ref={hiddenFileInput}
+						onChange={handleFileChange}
+					/>
+
+					<button type='submit' onClick={handleSubmit}>
+						Upload
+					</button>
+				</div>
+			</div>
 		</>
 	);
 }
 
-export default App;
+export default Upload;
+
+// async function handleSubmit() {
+// 	let cookies = Cookies.get();
+// 	setUploadedBy(cookies.User);
+// 	const res = await uploadBookRequest(
+// 		file,
+// 		name,
+// 		category,
+// 		subject,
+// 		uploadedBy,
+// 		author
+// 	);
+// 	if (res === "Success") {
+// 		alert("Book uploaded Sucessfully");
+// 	} else {
+// 		alert("Error occured while uploading book");
+// 	}
+// }

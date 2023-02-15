@@ -8,11 +8,10 @@ import {
 
 import {
     uploadBook,
-    handleDownload,
+    downloadBook,
+    searchContent,
     getBooks,
-    addBook,
-    getBook,
-    searchContent
+    deleteBook
 } from "./controllers/bookController.js"
 
 const upload = multer({
@@ -24,14 +23,13 @@ const router = express.Router();
 router.post("/user/signup", UserSignup);
 router.post("/user/login", UserLogin);
 router.get("/user/:id", getUser);
-//content routes
-router.get("/content/all", getBooks)
-router.post("/content/add", addBook)
-router.get("/content/:id", getBook)
+
 //file routes
+router.get("/content/all")
 router.post("/content/upload", upload.single("file"), uploadBook)
-router.get("/file/:id", handleDownload)
-router.post("/file/:id", handleDownload);
+router.get("/file/:id", downloadBook).post("/file/:id", downloadBook);
+router.get("/delete/:id", deleteBook)
+// app.route("/file/:id").get(handleDownload).post(handleDownload);
 //search routes
 router.get("/search", searchContent)
 

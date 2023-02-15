@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useOnScreen } from "../useOnScreen";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import B1 from "../assests/Book_lover.png";
 import B2 from "../assests/Books_re.png";
 import B3 from "../assests/Bookshelves.png";
@@ -11,6 +12,9 @@ import B7 from "../assests/selection.png";
 import B8 from "../assests/Team_page.png";
 
 function Home() {
+	//user state
+	const [loggedIn, setLoggedIn] = useState("");
+
 	const navigate = useNavigate();
 	//all refs
 	const HomeRef = useRef();
@@ -43,11 +47,6 @@ function Home() {
 		}
 	}
 
-	useEffect(() => {
-		setNavbarStatefunction();
-		console.log(homeOnScreen);
-	});
-
 	//scrolling function
 	const executeScrolltoHomePage = () =>
 		HomeRef.current.scrollIntoView({ block: "start", inline: "start" });
@@ -69,6 +68,15 @@ function Home() {
 		let pos = element.offsetTop;
 		window.scrollTo(0, pos - 100);
 	};
+
+	useEffect(() => {
+		let cookies = Cookies.get();
+		if (cookies.User) {
+			setLoggedIn("Enter Library");
+		} else {
+			setLoggedIn("Log In");
+		}
+	}, []);
 
 	return (
 		<>
@@ -106,8 +114,10 @@ function Home() {
 					</p>
 					<button
 						className='home-section-login'
-						onClick={() => navigate("/auth")}>
-						Log In
+						onClick={() =>
+							loggedIn === "Log In" ? navigate("/auth") : navigate("/search")
+						}>
+						{loggedIn}
 					</button>
 				</div>
 				<div className='home-section-image'>
@@ -187,7 +197,7 @@ function Home() {
 						<label>Email</label>
 						<input type='email'></input>
 
-						<label className='message-label'>Message</label>
+						<label className='message-label'>Feedback</label>
 						<textarea type='text'></textarea>
 
 						<button className='contactus-section-form-button'>Submit</button>

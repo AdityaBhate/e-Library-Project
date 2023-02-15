@@ -7,23 +7,24 @@ const BookSchema = mongoose.Schema({
     category: {
         type: String
     },
-    subject: {
-        type: String
-    },
-    uploadedBy: {
+    branch: {
         type: String
     },
     author: {
         type: String
     },
-    recommendedYear: {
-        type: Number
+
+    uploadedBy: {
+        type: String
     },
     originalName: {
         type: String
     },
     path: {
         type: String
+    },
+    downloadCount: {
+        type: Number
     }
 })
 

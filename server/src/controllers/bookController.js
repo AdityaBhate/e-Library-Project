@@ -1,30 +1,5 @@
 import BookModel from "../models/BookModel.js";
-
-export const addBook = async (req, res) => {
-    const {
-        name,
-        category,
-        subject,
-        filePath
-    } = req.body
-    const newBook = new BookModel({
-        name,
-        category,
-        subject,
-        filePath
-    });
-    try {
-        await newBook.save()
-        res.send(newBook)
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export const getBook = async (req, res) => {
-    const book = await BookModel.findById(req.params.id)
-    res.send(book)
-}
+import fs from "fs"
 
 export const getBooks = async (req, res) => {
     BookModel.find({}).then(function (users) {
@@ -32,70 +7,86 @@ export const getBooks = async (req, res) => {
     });
 }
 
-export async function handleDownload(req, res) {
-    const book = await BookModel.findById(req.params.id);
+export async function deleteBook(req, res) {
+    try {
 
-    file.downloadCount++;
-    await book.save();
-    console.log("Downloading file");
+        const document = await BookModel.findById(req.params.id);
 
-    res.download(file.path, file.originalName);
+        await document.remove();
+
+        const currentPath = process.cwd()
+        fs.unlink(`D:/Project/P2/code/server/${document.path}`, (err) => {
+            if (err) throw err;
+            console.log(`File ${document.fileName} was deleted.`);
+        });
+
+        res.json({
+            message: "Document and file deleted successfully"
+        });
+    } catch (err) {
+        res.status(500).json({
+            message: "Failed to delete document and file"
+        });
+    }
 }
 
 export const uploadBook = async (req, res) => {
     const fileData = {
         name: req.body.name,
         path: req.file.path,
-        originalName: req.file.originalname,
+        originalName: req.file.name,
         category: req.body.category,
-        subject: req.body.subject,
+        branch: req.body.branch,
         uploadedBy: req.body.uploadedBy,
         author: req.body.author,
-        recommendedYear: req.body.recommendedYear
+        downloadCount: 0,
     };
-    /**name: {
-        type: String
-    },
-    category: {
-        type: String
-    },
-    subject: {
-        type: String
-    },
-    uploadedBy: {
-        type: String
-    },
-    author: {
-        type: String
-    },
-    recommendedYear: {
-        type: Number
-    }, */
-    const book = await BookModel.create(fileData);
-
-    res.send(`book uploaded successfully by id ${book.id}`);
+    try {
+        const book = await BookModel.create(fileData);
+        res.send("Success");
+    } catch (error) {
+        res.send(error)
+    }
 };
 
+export const downloadBook = async (req, res) => {
+    try {
+        const file = await BookModel.findById(req.params.id);
+
+        // file.downloadCount++;
+        // await file.save();
+        // console.log(file.downloadCount);
+
+        res.download(file.path, file.originalName);
+    } catch (error) {
+        res.send(error)
+    }
+}
+
 export const searchContent = async (req, res) => {
-    // let recommendedYear = req.query.recommendedYear;
-    let category = req.query.category;
-    let subject = req.query.subject;
-    let name = req.query.name;
-    console.log(req.query)
 
-    let resData = await BookModel.find({
-        "$or": [{
-            name: {
-                $regex: name
-            },
-            subject: {
-                $regex: subject
-            },
-            category: {
-                $regex: category
-            }
-        }]
-    })
+    if (req.cookies.User) {
+        let category = req.query.category;
+        let branch = req.query.branch;
+        let name = req.query.name;
+        let resData = await BookModel.find({
+            "$or": [{
+                name: {
+                    $regex: name
+                },
+                branch: {
+                    $regex: branch
+                },
+                category: {
+                    $regex: category
+                }
+            }]
+        })
+        res.send(resData)
+    } else {
+        res.send({
+            "Message": "User not authenticated"
+        })
+    }
 
-    res.json(resData)
 }
