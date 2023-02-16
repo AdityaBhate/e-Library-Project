@@ -15,7 +15,7 @@ export async function deleteBook(req, res) {
         await document.remove();
 
         const currentPath = process.cwd()
-        fs.unlink(`D:/Project/P2/code/server/${document.path}`, (err) => {
+        fs.unlink(`D:/Project/code/server/${document.path}`, (err) => {
             if (err) throw err;
             console.log(`File ${document.fileName} was deleted.`);
         });

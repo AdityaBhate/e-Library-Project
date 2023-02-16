@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { logInPostRequest } from "../api/apiClient";
-import { useMutation } from "react-query";
+import Cookies from "js-cookie";
 import Navbar from "../components/Navbar";
 
 const Auth = () => {
 	const navigate = useNavigate();
-	//context
+	//button state
+	const [showNavigation, setShowNavigation] = useState("");
 	//student state
 	const [std_username, std_setUsername] = useState("");
 	const [std_password, std_setPassword] = useState("");
@@ -23,7 +23,8 @@ const Auth = () => {
 
 		if (res.Auth === "Success") {
 			alert(`Logged In as: ${res.user.role}`);
-			navigate("/search");
+			setShowNavigation("student");
+			// navigate("/search");
 		} else {
 			alert(`Errored Occured during Logging In`);
 		}
@@ -35,11 +36,21 @@ const Auth = () => {
 
 		if (res.Auth === "Success") {
 			alert(`Logged In as: ${res.user.role}`);
-			navigate("/search");
+			setShowNavigation("admin");
+			// navigate("/search");
 		} else {
 			alert(`Errored Occured during Logging In`);
 		}
 	};
+
+	useEffect(() => {
+		let cookies = Cookies.get();
+		if (cookies.Role === "admin") {
+			setShowNavigation("admin");
+		} else if (cookies.Role === "student") {
+			setShowNavigation("student");
+		}
+	}, [std_setUsername, adm_setUsername, std_onSubmit, adm_onSubmit]);
 
 	return (
 		<>
@@ -97,6 +108,31 @@ const Auth = () => {
 								Log In
 							</button>
 						</div>
+					)}
+				</div>
+				<div className='auth-footer'>
+					{showNavigation === "student" ? (
+						<button className='nav-buttons' onClick={() => navigate("/search")}>
+							Search
+						</button>
+					) : (
+						<p></p>
+					)}
+					{showNavigation === "admin" ? (
+						<>
+							<button
+								className='nav-buttons'
+								onClick={() => navigate("/search")}>
+								Search
+							</button>
+							<button
+								className='nav-buttons'
+								onClick={() => navigate("/upload")}>
+								Upload
+							</button>
+						</>
+					) : (
+						<p></p>
 					)}
 				</div>
 			</div>
